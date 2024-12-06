@@ -1,0 +1,94 @@
+TASK 1: LOAD AND EXPLORE THE DATASET
+import pandas as pd
+
+# Load the dataset
+try:
+    # Replace 'your_dataset.csv' with the actual path to your CSV file
+    dataset = pd.read_csv('your_dataset.csv')
+    print("Dataset loaded successfully.")
+except FileNotFoundError:
+    print("File not found. Please check the file path.")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+# Display the first few rows
+print("First 5 rows of the dataset:")
+print(dataset.head())
+
+# Check the data structure
+print("\nDataset Info:")
+print(dataset.info())
+
+# Check for missing values
+print("\nMissing Values:")
+print(dataset.isnull().sum())
+
+# Clean the dataset by handling missing values
+# Option 1: Fill missing values (example with mean for numerical columns)
+dataset.fillna(dataset.mean(numeric_only=True), inplace=True)
+
+# Option 2: Drop rows with missing values
+# dataset.dropna(inplace=True)
+
+print("\nData after handling missing values:")
+print(dataset.isnull().sum())
+
+TASK 2; BASIC DATA ANALYSIS 
+# Compute basic statistics
+print("\nBasic Statistics:")
+print(dataset.describe())
+
+# Grouping and computing the mean
+# Replace 'categorical_column' and 'numerical_column' with actual column names
+grouped_data = dataset.groupby('categorical_column')['numerical_column'].mean()
+print("\nMean of numerical_column grouped by categorical_column:")
+print(grouped_data)
+
+# Identify patterns (example placeholder)
+# You can analyze the grouped data to identify interesting findings
+print("\nInteresting Findings:")
+# Add custom analysis based on your dataset
+
+TASK 3; DATA VISUALIZATION 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Line Chart
+plt.figure(figsize=(10, 6))
+# Replace 'time_column' and 'value_column' with actual column names
+plt.plot(dataset['time_column'], dataset['value_column'], marker='o')
+plt.title('Trend Over Time')
+plt.xlabel('Time')
+plt.ylabel('Value')
+plt.grid()
+plt.show()
+
+# Bar Chart
+plt.figure(figsize=(10, 6))
+# Replace 'categorical_column' and 'numerical_column' with actual column names
+sns.barplot(x='categorical_column', y='numerical_column', data=dataset, palette='viridis')
+plt.title('Average Value per Category')
+plt.xlabel('Category')
+plt.ylabel('Average Value')
+plt.show()
+
+# Histogram
+plt.figure(figsize=(10, 6))
+# Replace 'numerical_column' with an actual column name
+sns.histplot(dataset['numerical_column'], kde=True, bins=30, color='blue')
+plt.title('Distribution of Numerical Column')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.show()
+
+# Scatter Plot
+plt.figure(figsize=(10, 6))
+# Replace 'numerical_column1' and 'numerical_column2' with actual column names
+sns.scatterplot(x='numerical_column1', y='numerical_column2', data=dataset, hue='categorical_column', palette='coolwarm')
+plt.title('Scatter Plot of Numerical Columns')
+plt.xlabel('Numerical Column 1')
+plt.ylabel('Numerical Column 2')
+plt.legend(title='Category')
+plt.show()
+
+
